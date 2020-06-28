@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="container">
+<h2>Dining hall weekly menu</h2>
+<table class="table table-bordered">
+    <tr>
+    {% for day in object_list %}
+    <th><a href="/menu/{{ day.id }}">{{ day }}</th>
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for day in object_list %}
+        <td class="menu">BREAKFAST</td>
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for dm in object_list %}
+        {% for m in dm.menu_set.all %}
+        {% if m.menu_type == 'BREAKFAST' %}
+    <td>
+        <ol>
+            {% for item in m.items.all %}
+        <li>
+            {{ item }}
+            {% endfor %}
+        </li>
+        </ol>
+    </td>
+        {% endif %}
+    {% endfor %}
+        {% endfor %}
+    </tr>
+     <tr>
+    {% for day in object_list %}
+        <td class="menu">LUNCH</td>
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for dm in object_list %}
+        {% for m in dm.menu_set.all %}
+        {% if m.menu_type == 'LUNCH' %}
+    <td>
+        <ol>
+            {% for item in m.items.all %}
+        <li>
+            {{ item }}
+            {% endfor %}
+        </li>
+        </ol>
+    </td>
+        {% endif %}
+    {% endfor %}
+        {% endfor %}
+    </tr>
+     <tr>
+    {% for day in object_list %}
+        <td class="menu">SNACK</td>
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for dm in object_list %}
+        {% for m in dm.menu_set.all %}
+        {% if m.menu_type == 'SNACK' %}
+    <td>
+        <ol>
+            {% for item in m.items.all %}
+        <li>
+            {{ item }}
+            {% endfor %}
+        </li>
+        </ol>
+    </td>
+        {% endif %}
+    {% endfor %}
+        {% endfor %}
+    </tr>
+</table>
+{% endblock %}
+</div>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assets</title>
+<style>
+table {
+    border-collapse: collapse;
+}
+td {
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+</style>
+</head>
+<body>
+<table>
+    {% for asset in object_list %}
+        {% cycle '<tr>' '' '' '' %}
+            <td><p style="margin-left: 45px; margin-bottom: -2px; font-family: courier;">{{ asset.asset_number }}</p>
+            <a href="{% url 'admin:assets_general_change' asset.id %}"><img alt="image" src="data:image/gif;base64,{{ asset.barcode | safe }}"/></a></td>
+    {% cycle '' '' '' '</tr>' %}
+    {% endfor %}
+</table>
+</body>
+</html>

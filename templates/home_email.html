@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<style type="text/css">
+.table-bordered {
+border : #dee2e6 solid 1px;
+}
+.table {
+width : 100%;
+margin-bottom : 1rem;
+color : #212529;
+}
+table {
+border-collapse : collapse;
+}
+*, ::after, ::before {
+box-sizing : border-box;
+}
+body {
+font-size : 1rem;
+font-weight : 400;
+line-height : 1.5;
+color : #212529;
+text-align : left;
+}
+html {
+font-family : sans-serif;
+line-height : 1.15;
+}
+</style>
+<div class="container">
+<h2>Dining Hall Weekly Menu</h2>
+<table class="table table-bordered">
+    <tr>
+    {% for day in object_list %}
+    <th><a href="/menu/{{ day.id }}">{{ day }}</th>
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for day in object_list %}
+        <td class="menu">BREAKFAST</td>
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for dm in object_list %}
+        {% for m in dm.menu_set.all %}
+        {% if m.menu_type == 'BREAKFAST' %}
+    <td>
+        <ol>
+            {% for item in m.items.all %}
+        <li>
+            {{ item }}
+            {% endfor %}
+        </li>
+        </ol>
+    </td>
+        {% endif %}
+    {% endfor %}
+        {% endfor %}
+    </tr>
+     <tr>
+    {% for day in object_list %}
+        <td class="menu">LUNCH</td>
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for dm in object_list %}
+        {% for m in dm.menu_set.all %}
+        {% if m.menu_type == 'LUNCH' %}
+    <td>
+        <ol>
+            {% for item in m.items.all %}
+        <li>
+            {{ item }}
+            {% endfor %}
+        </li>
+        </ol>
+    </td>
+        {% endif %}
+    {% endfor %}
+        {% endfor %}
+    </tr>
+     <tr>
+    {% for day in object_list %}
+        <td class="menu">SNACK</td>
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for dm in object_list %}
+        {% for m in dm.menu_set.all %}
+        {% if m.menu_type == 'SNACK' %}
+    <td>
+        <ol>
+            {% for item in m.items.all %}
+        <li>
+            {{ item }}
+            {% endfor %}
+        </li>
+        </ol>
+    </td>
+        {% endif %}
+    {% endfor %}
+        {% endfor %}
+    </tr>
+</table>
+{% endblock %}
+</div>

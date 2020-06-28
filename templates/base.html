@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Diner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    {% load static %}
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <script src='https://code.jquery.com/jquery.js'></script>
+    {% load static %}
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"> </script>
+    <main>
+    <div class="navbar navbar-expand-sm bg-info navbar-dark">
+      <a class="navbar-brand" href="/">Diner</a>
+        <ul class="navbar-nav">
+          <li class="nav-item active"><a class="nav-link" href="{% url 'menus' %}">Home</a></li>
+        </ul>
+      
+    </div>
+    {% block content %}
+    {% endblock %}
+    </main>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+venv/*
+.idea/*
+__pycache__/*
+dining/__pycache__/*
+administration/__pycache__/*
+dining/migrations/*
+administration/migrations/*
+db.sqlite3
+admin/*
+static/*
+cens_proj/__pycache__/*
+cens_proj/settings_prod.py
+bower_components/
+cens_proj/assets/
+cens_proj/static/
+dining_indent/
+diner/__pycache__

@@ -1,10 +1,3 @@
----
-layout: post
-title:  "notes"
-date:   2020-06-24 19:48:56 +0530
-categories: jekyll installation
----
-
 Django Diner
 ======
 

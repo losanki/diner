@@ -3,8 +3,6 @@ venv/*
 __pycache__/*
 dining/__pycache__/*
 administration/__pycache__/*
-dining/migrations/*
-administration/migrations/*
 db.sqlite3
 admin/*
 static/*

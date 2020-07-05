@@ -38,11 +38,3 @@ class Menu(models.Model):
     def __str__(self):
         return u'%s %s' % (self.menu_type, self.date)
 
-
-class Feedback(models.Model):
-    date = models.ForeignKey(DailyMenu, null=False, on_delete=models.CASCADE)
-    comment = models.TextField(null=True, blank=True)
-    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
-
-    def __str__(self):
-        return '%s - %s' % (self.comment, self.added_by)

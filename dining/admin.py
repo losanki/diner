@@ -5,13 +5,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 
 # Register your models here.
-from dining.models import Menu, Item, DailyMenu, Feedback
-
-
-class FeedbackAdmin(admin.TabularInline):
-    model = Feedback
-    extra = 1
-    exclude = ['added_by', ]
+from dining.models import Menu, Item, DailyMenu
 
 
 class ItemAdmin(admin.ModelAdmin):
@@ -27,16 +21,8 @@ class DailyMenuAdmin(admin.ModelAdmin):
     model = DailyMenu
     inlines = [
         MenuAdminInline,
-        FeedbackAdmin,
     ]
     change_list_template = "send_email.html"
-
-    def save_formset(self, request, form, formset, change):
-        instances = formset.save(commit=False)
-        for instance in instances:
-            instance.added_by = request.user
-            instance.save()
-        formset.save_m2m()
 
     def get_urls(self):
         urls = super().get_urls()
@@ -61,4 +47,3 @@ class DailyMenuAdmin(admin.ModelAdmin):
 
 admin.site.register(Menu)
 admin.site.register(Item)
-admin.site.register(Feedback)

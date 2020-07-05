@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import DailyMenu, Menu, Item
+from .models import Menu, Meal, Item
 import datetime
 from django.urls import reverse
 
@@ -11,20 +11,34 @@ class SimpleTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def setUp(self):
-        DailyMenu.objects.create(for_date=datetime.datetime.now())
-        Item.objects.create(name='Dosa')
+        menu = Menu(date=datetime.datetime.now())
+        dosa = Item.objects.create(name='Dosa', price=40)
+        idli = Item.objects.create(name='Idli', price=40)
+        self.dosa = dosa
+        self.idli = idli
+        meal = Meal(meal_type='SNACK')
+        meal.save()
+        meal.items.add(idli)
+        meal.items.add(dosa)
+        meal.menu = menu
+        menu.save()
+        meal.save()
+        self.meal = meal
 
-    def test_menu_create(self):
-        daily_menu = DailyMenu.objects.get(id=1)
-        dm = DailyMenu.objects.get(id=1)
-        item = Item.objects.get(id=1)
-        m = Menu.objects.create(date=dm, menu_type='BREAKFAST')
-        m.items.add(item)
+    def test_create_meal(self):
+        meal = Meal(meal_type='SNACK')
+        meal.save()
+        meal.items.add(self.idli)
+        meal.items.add(self.dosa)
+        self.assertEqual(meal.meal_type, 'SNACK')
 
-        expected_item_name = f'{item.name}'
+    def test_menu(self):
+        menu = Menu.objects.first()
+        # import pdb; pdb.set_trace()
+        expected_item_name = menu.meals.first().items.first().name
         now = datetime.date.today()
         self.assertEqual(expected_item_name, 'Dosa')
-        self.assertEqual(daily_menu.for_date, now)
+        self.assertEqual(menu.date, now)
 
     def test_view_url_by_name(self):
         resp = self.client.get(reverse('menus'))
@@ -32,4 +46,4 @@ class SimpleTests(TestCase):
 
     def test_view_template(self):
         resp = self.client.get(reverse('menus'))
-        self.assertTemplateUsed(resp, 'home.html')
+        self.assertTemplateUsed(resp, 'week.html')

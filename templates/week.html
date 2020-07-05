@@ -5,22 +5,22 @@
 <h2>Dining hall weekly menu</h2>
 <table class="table table-bordered">
     <tr>
-    {% for day in object_list %}
-    <th><a href="/menu/{{ day.id }}">{{ day }}</th>
+    {% for menu in object_list %}
+    <th><a href="/menu/{{ menu.id }}">{{ menu }}</th>
     {% endfor %}
     </tr>
     <tr>
-    {% for day in object_list %}
-        <td class="menu">BREAKFAST <a href="#">Order</a> </td>
+    {% for meal in object_list %}
+        <td class="menu font-weight-bold">BREAKFAST </td>
     {% endfor %}
     </tr>
     <tr>
-    {% for dm in object_list %}
-        {% for m in dm.menu_set.all %}
-        {% if m.menu_type == 'BREAKFAST' %}
+    {% for menu in object_list %}
+        {% for meal in menu.meals.all %}
+        {% if meal.meal_type == 'BREAKFAST' %}
     <td>
         <ol>
-            {% for item in m.items.all %}
+            {% for item in meal.items.all %}
         <li>
             {{ item }}
             {% endfor %}
@@ -32,17 +32,17 @@
         {% endfor %}
     </tr>
      <tr>
-    {% for day in object_list %}
-        <td class="menu">LUNCH</td>
+    {% for menu in object_list %}
+        <td class="menu font-weight-bold">LUNCH </td>
     {% endfor %}
     </tr>
     <tr>
-    {% for dm in object_list %}
-        {% for m in dm.menu_set.all %}
-        {% if m.menu_type == 'LUNCH' %}
+    {% for menu in object_list %}
+        {% for meal in menu.meals.all %}
+        {% if meal.meal_type == 'LUNCH' %}
     <td>
         <ol>
-            {% for item in m.items.all %}
+            {% for item in meal.items.all %}
         <li>
             {{ item }}
             {% endfor %}
@@ -54,17 +54,17 @@
         {% endfor %}
     </tr>
      <tr>
-    {% for day in object_list %}
-        <td class="menu">SNACK</td>
+    {% for menu in object_list %}
+        <td class="menu font-weight-bold">SNACK </td>
     {% endfor %}
     </tr>
     <tr>
-    {% for dm in object_list %}
-        {% for m in dm.menu_set.all %}
-        {% if m.menu_type == 'SNACK' %}
+    {% for menu in object_list %}
+        {% for meal in menu.meals.all %}
+        {% if meal.meal_type == 'SNACK' %}
     <td>
         <ol>
-            {% for item in m.items.all %}
+            {% for item in meal.items.all %}
         <li>
             {{ item }}
             {% endfor %}

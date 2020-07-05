@@ -10,74 +10,49 @@ textarea{
 {% block title %}Home{% endblock %}
 {% block content %}
 <div class="container">
-<h2>{{ dailymenu.for_date }}</h2>
+<h2>{{ menu }}</h2>
 <table class='table table-bordered'>
-    <tr class='table-primary'> <th>BREAKFAST</th>  <th>LUNCH</th><th>SNACK</th></tr>
-    <tr>
-	<td>
-        {% for m in dailymenu.menu_set.all %}
-        {% if m.menu_type == 'BREAKFAST' %}
+    <tr class='table-primary'> <th>BREAKFAST</th> <th>LUNCH</th><th>SNACK </th></tr>
+    {% for meal in menu.meals.all %}
+    {% if meal.meal_type == 'BREAKFAST' %}
+        <tr><td>
             <ol >
-            {% for item in m.items.all %}
-                 <li>
-                    {{ item }}
-                    {% endfor %}
-                </li>
-            </ol>  
-        {% endif %}
-        {% endfor %}
-    </td>
-    <td>
-        {% for m in dailymenu.menu_set.all %}
-            {% if m.menu_type == 'LUNCH' %}
-      
-            <ol>
-            {% for item in m.items.all %}
+            {% for item in meal.items.all %}
                  <li>
                     {{ item }}
                     {% endfor %}
                 </li>
             </ol>
-       
+            <a href="{% url 'order' meal.id %}">Order</a>
+        </td>
         {% endif %}
-        {% endfor %}
-    </td> 
-    <td>
-        {% for m in dailymenu.menu_set.all %}
-            {% if m.menu_type == 'SNACK' %}
-      
+        {% if meal.meal_type == 'LUNCH' %}
+            <td>
             <ol>
-            {% for item in m.items.all %}
+            {% for item in meal.items.all %}
                  <li>
                     {{ item }}
                     {% endfor %}
                 </li>
             </ol>
+                <a href="{% url 'order' meal.id %}">Order</a>
+            </td>
+               {% endif %}
+
+        {% if meal.meal_type == 'SNACK' %}
+            <td>
+            <ol>
+            {% for item in meal.items.all %}
+                 <li>
+                    {{ item }}
+                    {% endfor %}
+                </li>
+            </ol>
+                <a href="{% url 'order' meal.id %}">Order</a>
+            </td>
         {% endif %}
         {% endfor %}
-    </td>
 	</tr>
 </table>
-
-<h3>Add a comment:</h3>
-<form action="/menu/{{ pk }}/comment" method = "post">
-    {% if user.is_authenticated %}
-    {% csrf_token %}
-    {{ comment_form }}<br>
-    <input type="submit" class="btn-success btn" value="Submit">
-    {% else %}
-    <p>You must be logged in to comment</p>
-    <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
-    {% endif %}
-</form>
-
-<h3>Comments:</h3>
-<ul class="list-group">
-    {% for comment in dailymenu.feedback_set.all %}
-    <li class="list-group-item">
-        {{ comment }}
-    </li>
-    {% endfor %}
-</ul>
+    <a href={% url 'menus' %}>Back to Menu</a>
 {% endblock %}
-</div>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>Menu: {{ meal.menu }}</p>
+<p>Meal: {{ meal.meal_type }}</p>
+{% for item in meal.items.all %}
+<ul>
+    <li>{{ item }}</li>
+</ul>
+{% endfor %}
+<form action="" method="post">{% csrf_token %}
+<input type="submit" class="btn btn-primary btn-sm">
+    <a href="/menu" class="btn btn-danger btn-sm">Cancel</a>
+</form>
+{% endblock %}

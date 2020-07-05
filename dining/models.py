@@ -1,32 +1,32 @@
 from django.db import models
-import datetime
-from django.conf import settings
+from administration.models import Profile
 
 
 class Item(models.Model):
     name = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 
-class DailyMenu(models.Model):
-
-    for_date = models.DateField()
-
-    def __str__(self):
-        day = self.for_date.strftime("%A")
-        return u'%s(%s)' % (day, self.for_date)
-
-    class Meta:
-        ordering = ['for_date']
-
-
 class Menu(models.Model):
 
-    date = models.ForeignKey(DailyMenu, null=True, on_delete=models.CASCADE)
+    date = models.DateField()
+
+    def __str__(self):
+        day = self.date.strftime("%A")
+        return u'%s(%s)' % (day, self.date)
+
+    class Meta:
+        ordering = ['date']
+
+
+class Meal(models.Model):
+
+    menu = models.ForeignKey(Menu, null=True, on_delete=models.CASCADE, related_name='meals')
     BreakFast, Lunch, Snack = 'BREAKFAST', 'LUNCH', 'SNACK'
-    menu_type = models.CharField(max_length=10, blank=True, null=True,
+    meal_type = models.CharField(max_length=10, blank=True, null=True,
                                  choices=(
                                      (BreakFast, 'BREAKFAST'),
                                      (Lunch, 'LUNCH'),
@@ -36,5 +36,14 @@ class Menu(models.Model):
     items = models.ManyToManyField(Item)
 
     def __str__(self):
-        return u'%s %s' % (self.menu_type, self.date)
+        return u'%s %s' % (self.meal_type, self.menu)
+
+
+class Order(models.Model):
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    meal = models.ForeignKey(Meal, on_delete=models.SET_NULL, null=True, related_name='orders')
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s-%s' % (self.user, self.meal)
 

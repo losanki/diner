@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'administration',
     'dining',
+    'star_ratings',
 ]
 
 MIDDLEWARE = [

@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load ratings %}
+{% block title %}Home{% endblock %}
+{% block content %}
 <style>
 textarea{
   width: 100%;
@@ -6,24 +11,24 @@ textarea{
   margin: 8px 2px !important;
 }
 </style>
-{% extends 'base.html' %}
-{% block title %}Home{% endblock %}
-{% block content %}
+
 <div class="container">
 <h2>{{ menu }}</h2>
 <table class='table table-bordered'>
-    <tr class='table-primary'> <th>BREAKFAST</th> <th>LUNCH</th><th>SNACK </th></tr>
     {% for meal in menu.meals.all %}
+    {% if forloop.first %}
+    <tr class='table-primary'><th>BREAKFAST</th><th>LUNCH</th><th>SNACK</th></tr>
+    {% endif %}
     {% if meal.meal_type == 'BREAKFAST' %}
         <tr><td>
-            <ol >
+            <ol>
             {% for item in meal.items.all %}
                  <li>
                     {{ item }}
                     {% endfor %}
                 </li>
             </ol>
-            <a href="{% url 'order' meal.id %}">Order</a>
+            <a href="{% url 'meal_detail' meal.id %}">Details</a>
         </td>
         {% endif %}
         {% if meal.meal_type == 'LUNCH' %}
@@ -35,7 +40,7 @@ textarea{
                     {% endfor %}
                 </li>
             </ol>
-                <a href="{% url 'order' meal.id %}">Order</a>
+            <a href="{% url 'meal_detail' meal.id %}">Details</a>
             </td>
                {% endif %}
 
@@ -48,11 +53,14 @@ textarea{
                     {% endfor %}
                 </li>
             </ol>
-                <a href="{% url 'order' meal.id %}">Order</a>
+                <a href="{% url 'meal_detail' meal.id %}">Details</a>
             </td>
         {% endif %}
         {% endfor %}
 	</tr>
 </table>
     <a href={% url 'menus' %}>Back to Menu</a>
+</div>
+
 {% endblock %}
+

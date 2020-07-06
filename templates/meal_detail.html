@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load ratings %}
+<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+{{ object }}
+<ol>
+{% for item in object.items.all %}
+    <li>{{ item }}</li>
+    {% endfor %}
+{% ratings object %}
+
+    <a href="{% url 'menu_detail' object.menu.id %}">Back to {{ object.menu }}</a>
+{% endblock %}

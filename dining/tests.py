@@ -22,6 +22,7 @@ class SimpleTests(TestCase):
         meal.items.add(dosa)
         meal.menu = menu
         menu.save()
+        self.menu = menu
         meal.save()
         self.meal = meal
 
@@ -39,6 +40,15 @@ class SimpleTests(TestCase):
         now = datetime.date.today()
         self.assertEqual(expected_item_name, 'Dosa')
         self.assertEqual(menu.date, now)
+
+    def test_menu_get_meal(self):
+        """
+            get snack/meal for menu
+        :return:
+        """
+        menu = self.menu
+        meals = menu.meals.filter(meal_type='SNACK')
+        self.assertEqual(len(meals), 1)
 
     def test_view_url_by_name(self):
         resp = self.client.get(reverse('menus'))

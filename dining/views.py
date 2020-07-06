@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView, View
+from django.views.generic import ListView, DetailView, View
 from .models import Menu, Order, Meal
 import datetime
 from django.shortcuts import HttpResponseRedirect, render
@@ -21,6 +21,16 @@ class MenuItemsView(ListView):
 class MenuDetailView(DetailView):
     model = Menu
     template_name = 'menu_detail.html'
+
+
+class MealDetailView(DetailView):
+    model = Meal
+    template_name = 'meal_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        return context
 
 
 class OrderCreateView(LoginRequiredMixin, View):

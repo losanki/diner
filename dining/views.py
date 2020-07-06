@@ -48,5 +48,5 @@ class OrderCreateView(LoginRequiredMixin, View):
         order.meal = meal
         order.user = self.request.user.profile
         order.save()
-        return HttpResponseRedirect("../")
+        return HttpResponseRedirect("/menu")
 

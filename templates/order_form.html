@@ -7,7 +7,7 @@
     <li>{{ item }}</li>
 </ul>
 {% endfor %}
-<form action="" method="post">{% csrf_token %}
+<form action="{% url 'order' meal.id %}" method="post">{% csrf_token %}
 <input type="submit" class="btn btn-primary btn-sm">
     <a href="/menu" class="btn btn-danger btn-sm">Cancel</a>
 </form>

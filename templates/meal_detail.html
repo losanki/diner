@@ -4,14 +4,51 @@
 {% load ratings %}
 <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
 <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+<div class="container">
 {{ object }}
 <ol>
-{% for item in object.items.all %}
+    Items:
+    {% for item in object.items.all %}
     <li>{{ item }}</li>
     {% endfor %}
+</ol>
     <div>
+        <p class="h5">Rate it</p>
         {% ratings object %}
     </div>
-    <a href="{% url 'order' object.id %}" class="btn btn-small btn-primary">Order</a>
-    <a href="{% url 'menu_detail' object.menu.id %}">Back to {{ object.menu }}</a>
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mealModal">
+  Order
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="mealModal" tabindex="-1" role="dialog" aria-labelledby="mealModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mealModalLabel">{{ meal }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          Items:
+        {% for item in meal.items.all %}
+          {{ item }}
+          {% endfor %}
+      </div>
+      <div class="modal-footer">
+          <form action="{% url 'order' meal.id %}" method="post">{% csrf_token %}
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <input type="submit" class="btn btn-primary">
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+    <p>
+        <a href="{% url 'menu_detail' object.menu.id %}">Back to {{ object.menu }}</a>
+    </p>
+</div>
+
 {% endblock %}

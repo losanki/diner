@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dining.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-
+    url(r'^comments/', include('django_comments_xtd.urls')),
 ]
 
 admin.site.site_header = "Dining Management"

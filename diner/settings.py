@@ -36,10 +36,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'administration',
     'dining',
     'star_ratings',
+    'django_comments_xtd',
+    'django_comments'
+
 ]
+
+SITE_ID = 1
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 3
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -27,11 +27,6 @@ class MealDetailView(DetailView):
     model = Meal
     template_name = 'meal_detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        print(context)
-        return context
-
 
 class OrderCreateView(LoginRequiredMixin, View):
     model = Order

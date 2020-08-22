@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from administration.models import Profile
 
 
@@ -34,6 +35,12 @@ class Meal(models.Model):
                                  )
                                  )
     items = models.ManyToManyField(Item)
+
+    def validate_unique(self, *args, **kwargs):
+        super().validate_unique(*args, **kwargs)
+
+        if self.__class__.objects.filter(menu=self.menu, meal_type=self.meal_type).exists():
+            raise ValidationError(message='This type of meal already exists', code='unique_together',)
 
     def __str__(self):
         return u'%s %s' % (self.meal_type, self.menu)

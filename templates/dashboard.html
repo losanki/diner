@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Weekly Menu</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Access Menu for current week</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
+                    content.</p>
+                <a href="{% url 'menus' %}" class="card-link">Menu link >></a>
+            </div>
+        </div>
+        <div class="card ml-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Add Menu</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Access Admin for adding menu</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
+                    content.</p>
+                <a href="/admin" class="card-link">Admin link >></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

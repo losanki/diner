@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 from django.core.exceptions import ValidationError
 from administration.models import Profile
 
@@ -42,6 +43,9 @@ class Meal(models.Model):
         if self.__class__.objects.filter(menu=self.menu, meal_type=self.meal_type).exists():
             raise ValidationError(message='This type of meal already exists', code='unique_together',)
 
+    def get_absolute_url(self):
+        return reverse('meal_detail', args=[str(self.pk)])
+    
     def __str__(self):
         return u'%s %s' % (self.meal_type, self.menu)
 

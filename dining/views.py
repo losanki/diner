@@ -6,15 +6,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class MenuItemsView(ListView):
-    dow = datetime.date.isoweekday(datetime.datetime.now())
     context_object_name = 'week_list'
     model = Menu
+    dow = datetime.date.weekday(datetime.datetime.now()) # get current day of week e.g, 6
     mon = datetime.datetime.now() - datetime.timedelta(days=dow)
-    weekend = mon + datetime.timedelta(days=6)
+    weekend = mon + datetime.timedelta(days=5)
     queryset = Menu.objects.filter(date__gte=mon)
-    # queryset = Menu.objects.filter(date__lte=weekend)
-    # queryset = queryset.filter(date__gte=mon)
-    # import pdb; pdb.set_trace()
+    queryset = queryset.filter(date__lte=weekend)
     template_name = 'week.html'
 
 

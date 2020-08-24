@@ -16,6 +16,12 @@ class ItemAdmin(admin.ModelAdmin):
 class MealAdminInline(admin.TabularInline):
     model = Meal
 
+    def get_extra(self, request, obj=None, **kwargs):
+        if hasattr(obj, 'meals'):
+            return 0
+        else:
+            return 3
+
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):

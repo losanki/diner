@@ -16,6 +16,9 @@ class Menu(models.Model):
 
     date = models.DateField()
 
+    def get_absolute_url(self):
+        return reverse('menu_detail', args=[str(self.pk)])
+
     def __str__(self):
         day = self.date.strftime("%A")
         return u'%s(%s)' % (day, self.date)

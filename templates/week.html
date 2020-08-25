@@ -6,7 +6,7 @@
 <table class="table table-bordered table-striped">
     <tr class='table-primary'>
     {% for menu in object_list %}
-    <th><a class="text-white" href="/menu/{{ menu.id }}">{{ menu }}</th>
+    <th><a class="text-white" href="{{ menu.get_absolute_url }}">{{ menu }}</th>
     {% endfor %}
     </tr>
     <tr>

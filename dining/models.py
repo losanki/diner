@@ -40,11 +40,11 @@ class Meal(models.Model):
                                  )
     items = models.ManyToManyField(Item)
 
-    def validate_unique(self, *args, **kwargs):
-        super().validate_unique(*args, **kwargs)
-
-        if self.__class__.objects.filter(menu=self.menu, meal_type=self.meal_type).exists():
-            raise ValidationError(message='This type of meal already exists', code='unique_together',)
+    # def validate_unique(self, *args, **kwargs):
+    #     super().validate_unique(*args, **kwargs)
+    #
+    #     if self.__class__.objects.filter(menu=self.menu, meal_type=self.meal_type).exists():
+    #         raise ValidationError(message='This type of meal already exists', code='unique_together',)
 
     def get_absolute_url(self):
         return reverse('meal_detail', args=[str(self.pk)])

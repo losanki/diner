@@ -3,15 +3,15 @@
 {% block content %}
 <div class="container">
 <h2>Dining hall weekly menu</h2>
-<table class="table table-bordered">
-    <tr>
+<table class="table table-bordered table-striped">
+    <tr class='table-primary'>
     {% for menu in object_list %}
-    <th><a href="/menu/{{ menu.id }}">{{ menu }}</th>
+    <th><a class="text-white" href="/menu/{{ menu.id }}">{{ menu }}</th>
     {% endfor %}
     </tr>
     <tr>
     {% for meal in object_list %}
-        <td class="menu font-weight-bold">BREAKFAST </td>
+        <td class="menu font-weight-bold">Breakfast </td>
     {% endfor %}
     </tr>
     <tr>
@@ -33,7 +33,7 @@
     </tr>
      <tr>
     {% for menu in object_list %}
-        <td class="menu font-weight-bold">LUNCH </td>
+        <td class="menu font-weight-bold">Lunch</td>
     {% endfor %}
     </tr>
     <tr>
@@ -55,7 +55,7 @@
     </tr>
      <tr>
     {% for menu in object_list %}
-        <td class="menu font-weight-bold">SNACK </td>
+        <td class="menu font-weight-bold">Snack</td>
     {% endfor %}
     </tr>
     <tr>

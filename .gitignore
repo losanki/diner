@@ -5,7 +5,6 @@ dining/__pycache__/*
 administration/__pycache__/*
 db.sqlite3
 admin/*
-static/*
 cens_proj/__pycache__/*
 cens_proj/settings_prod.py
 bower_components/

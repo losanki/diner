@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Week menu</li>
+    </ol>
+</nav>
+<ul class="list-group list-group-horizontal">
+    <li class="list-group-item flex-fill text-white bg-primary">Breakfast</li>
+    <li class="list-group-item flex-fill text-white bg-primary">Lunch</li>
+    <li class="list-group-item flex-fill text-white bg-primary">Snack</li>
+</ul>
+
+
+{% for menu in object_list %}
+<p class="h5 text-center text-white bg-info my-2">{{ menu }}</p>
+<div class="row">
+    {% for meal in menu.meals.all %}
+    <div class="col-md-4">
+        {% if meal.meal_type == 'BREAKFAST' %}
+        <a href="{{ meal.get_absolute_url }}">
+            <div class="container">
+                <ol>
+                    {% for item in meal.items.all %}
+                    <li>{{item}}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </a>
+        {% else %}
+        <p>No breakfast</p>
+        {% endif %}
+    </div>
+    <div class="col-md-4">
+        {% if meal.meal_type == 'LUNCH' %}
+        <ol>
+            {% for item in meal.items.all %}
+            <li>{{item}}</li>
+            {% endfor %}
+        </ol>
+        {% else %}
+        <p>No lunch</p>
+        {% endif %}
+    </div>
+    <div class="col-md-4">
+        {% if meal.meal_type == 'SNACK' %}
+        <ol>
+            {% for item in meal.items.all %}
+            <li>{{item}}</li>
+            {% endfor %}
+        </ol>
+        {% else %}
+        <p>No snacks</p>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+<p>
+    {% if previous_week %}
+    Previous Week: {{ previous_week|date:"W" }} of year {{ previous_week|date:"Y" }}
+    {% endif %}
+    {% if previous_week and next_week %}--{% endif %}
+    {% if next_week %}
+    Next week: {{ next_week|date:"W" }} of year {{ next_week|date:"Y" }}
+    {% endif %}
+</p>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load ratings %}
+{% load comments %}
+{% load comments_xtd %}
+
+<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'menus-week' year week %}">Week menu</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Menu details</li>
+    </ol>
+</nav>
+    <p class="h5 text-white bg-primary text-center">{{ object }}</p>
+    <p class="h5">Items:</p>
+<ol>
+    {% for item in object.items.all %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ol>
+    <div>
+        <p class="h5">Rate it</p>
+        {% ratings object %}
+    </div>
+        <a href="{% url 'menus-week' year week %}" class="card-link"><< Back to Menu for this week</a>
+<div class="container">
+{% get_comment_count for object as comment_count %}
+<div class="py-4 text-center">
+  {{ comment_count }} comment{{ comment_count|pluralize }}
+  ha{{ comment_count|pluralize:"s,ve" }} been posted.
+</div>
+{% render_xtdcomment_tree for object %}
+<div class="card card-block mb-5">
+  <div class="card-body">
+    <h4 class="card-title text-center pb-3">Post your comment</h4>
+      {% render_comment_form for object %}
+  </div>
+</div>
+</div>
+
+{% endblock %}

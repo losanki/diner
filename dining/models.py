@@ -40,6 +40,9 @@ class Meal(models.Model):
                                  )
     items = models.ManyToManyField(Item)
 
+    class Meta:
+        ordering = ['meal_type']
+
     # def validate_unique(self, *args, **kwargs):
     #     super().validate_unique(*args, **kwargs)
     #

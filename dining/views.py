@@ -31,16 +31,6 @@ class MenuItemsView(ListView):
     queryset = queryset.filter(date__lte=weekend)
     template_name = 'week.html'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data()
-        weekday_names = []
-        meal_names = ['Breakfast', 'Lunch', 'Snack']
-        for i in range(6):
-            weekday_names.append(WEEKDAYS[i])
-        context['weekday_names'] = weekday_names
-        context['meal_names'] = meal_names
-        return context
-
 
 class MenuWeekView(WeekArchiveView):
     queryset = Menu.objects.all()
@@ -48,14 +38,6 @@ class MenuWeekView(WeekArchiveView):
     week_format = '%W'
     allow_future = True
     ordering = 'date'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data()
-        weekday_names = []
-        for i in range(6):
-            weekday_names.append(WEEKDAYS[i])
-        context['weekday_names'] = weekday_names
-        return context
 
 
 class MenuDetailView(DetailView):

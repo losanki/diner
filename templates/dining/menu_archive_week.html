@@ -7,22 +7,22 @@
     </ol>
 </nav>
 <ul class="list-group list-group-horizontal">
-    <li class="list-group-item flex-fill text-white bg-primary">Breakfast</li>
-    <li class="list-group-item flex-fill text-white bg-primary">Lunch</li>
-    <li class="list-group-item flex-fill text-white bg-primary">Snack</li>
+    <li class="list-group-item flex-fill text-white bg-primary">BREAKFAST</li>
+    <li class="list-group-item flex-fill text-white bg-primary">LUNCH</li>
+    <li class="list-group-item flex-fill text-white bg-primary">SNACK</li>
 </ul>
 {% for menu in object_list %}
-<p class="h5 text-center text-white bg-info my-2">{{ menu }}</p>
+<p class="text-center text-white bg-success my-2">{{ menu }}</p>
 <div class="row">
     <div class="col-md-4">
     {% for meal in menu.meals.all %}
         {% if meal.meal_type == 'BREAKFAST'%}
         <a href="{{ meal.get_absolute_url }}">
-                <ol>
+                <ul class="list-unstyled">
                     {% for item in meal.items.all %}
                     <li>{{item}}</li>
                     {% endfor %}
-                </ol>
+                </ul>
         </a>
         {% elif menu.meals.count < 3 %} No breakfast {% endif %}
     {% endfor %}
@@ -31,11 +31,11 @@
         {% for meal in menu.meals.all %}
         {% if meal.meal_type == 'LUNCH' %}
         <a href="{{ meal.get_absolute_url }}">
-                <ol>
+                <ul class="list-unstyled">
                     {% for item in meal.items.all %}
                     <li>{{item}}</li>
                     {% endfor %}
-                </ol>
+                </ul>
         </a>
         {% elif menu.meals.count < 3 %} No lunch {% endif %}
     {% endfor %}
@@ -44,11 +44,11 @@
     {% for meal in menu.meals.all %}
         {% if meal.meal_type == 'SNACK' %}
         <a href="{{ meal.get_absolute_url }}">
-                <ol>
+                <ul class="list-unstyled">
                     {% for item in meal.items.all %}
                     <li>{{item}}</li>
                     {% endfor %}
-                </ol>
+                </ul>
         </a>
         {% elif menu.meals.count < 3 %} No snacks {% endif %}
     {% endfor %}

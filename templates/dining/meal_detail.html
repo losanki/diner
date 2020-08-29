@@ -14,13 +14,13 @@
         <li class="breadcrumb-item active" aria-current="page">Menu details</li>
     </ol>
 </nav>
-    <p class="h5 text-white bg-primary text-center">{{ object }}</p>
+    <p class="text-white bg-success text-center">{{ object }}</p>
     <p class="h5">Items:</p>
-<ol>
+<ul>
     {% for item in object.items.all %}
     <li>{{ item }}</li>
     {% endfor %}
-</ol>
+</ul>
     <div>
         <p class="h5">Rate it</p>
         {% ratings object %}

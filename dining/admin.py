@@ -25,6 +25,7 @@ class MealAdminInline(admin.TabularInline):
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
+    date_hierarchy = 'date'
     model = Menu
     inlines = [
         MealAdminInline,

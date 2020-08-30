@@ -6,7 +6,7 @@ from django.contrib import admin
 #
 # # Register your models here.
 
-from dining.models import Menu, Meal, Item, Order
+from dining.models import Menu, Meal, Item
 
 
 class ItemAdmin(admin.ModelAdmin):
@@ -21,13 +21,6 @@ class MealAdminInline(admin.TabularInline):
             return 0
         else:
             return 3
-
-
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
-    readonly_fields = ('date', )
-    model = Order
-    date_hierarchy = 'date'
 
 
 @admin.register(Menu)

@@ -30,6 +30,9 @@ class Menu(models.Model):
 class Meal(models.Model):
 
     menu = models.ForeignKey(Menu, null=True, on_delete=models.CASCADE, related_name='meals')
+    BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
+
+    available = models.BooleanField(choices=BOOL_CHOICES, default=True)
     BreakFast, Lunch, Snack = 'BREAKFAST', 'LUNCH', 'SNACK'
     meal_type = models.CharField(max_length=10, blank=True, null=True,
                                  choices=(
@@ -38,7 +41,7 @@ class Meal(models.Model):
                                      (Snack, 'SNACK'),
                                  )
                                  )
-    items = models.ManyToManyField(Item)
+    items = models.ManyToManyField(Item, blank=True)
 
     class Meta:
         ordering = ['meal_type']
@@ -54,13 +57,4 @@ class Meal(models.Model):
     
     def __str__(self):
         return u'%s %s' % (self.meal_type, self.menu)
-
-
-class Order(models.Model):
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    meal = models.ForeignKey(Meal, on_delete=models.SET_NULL, null=True, related_name='orders')
-    date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return '%s-%s' % (self.user, self.meal)
 

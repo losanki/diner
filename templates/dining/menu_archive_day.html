@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Today</li>
+    </ol>
+</nav>
+<ul class="list-group list-group-horizontal">
+    <li class="list-group-item flex-fill text-white bg-primary text-center">BREAKFAST</li>
+    <li class="list-group-item flex-fill text-white bg-primary text-center">LUNCH</li>
+    <li class="list-group-item flex-fill text-white bg-primary text-center">SNACK</li>
+</ul>
+{% for menu in object_list %}
+<p class="text-center text-white bg-success my-2">{{ menu }}</p>
+<div class="row">
+    <div class="col-md-4">
+    {% for meal in menu.meals.all %}
+        {% if meal.meal_type == 'BREAKFAST' and meal.available == True %}
+        <a href="{{ meal.get_absolute_url }}">
+                <ul class="list-unstyled">
+                    {% for item in meal.items.all %}
+                    <li class="text-center">{{item}}</li>
+                    {% endfor %}
+                </ul>
+        </a>
+        {% elif meal.meal_type == 'BREAKFAST' and meal.available == False %} <p class="text-center">No breakfast</p> {% endif %}
+    {% endfor %}
+    </div>
+    <div class="col-md-4">
+        {% for meal in menu.meals.all %}
+        {% if meal.meal_type == 'LUNCH' and meal.available == True %}
+        <a href="{{ meal.get_absolute_url }}">
+                <ul class="list-unstyled">
+                    {% for item in meal.items.all %}
+                    <li class="text-center">{{item}}</li>
+                    {% endfor %}
+                </ul>
+        </a>
+        {% elif meal.meal_type == 'LUNCH' and meal.available == False %} <p class="text-center">No lunch</p> {% endif %}
+    {% endfor %}
+    </div>
+    <div class="col-md-4">
+    {% for meal in menu.meals.all %}
+        {% if meal.meal_type == 'SNACK' and meal.available == True %}
+        <a href="{{ meal.get_absolute_url }}">
+                <ul class="list-unstyled">
+                    {% for item in meal.items.all %}
+                    <li class="text-center">{{item}}</li>
+                    {% endfor %}
+                </ul>
+        </a>
+        {% elif meal.meal_type == 'SNACK' and meal.available == False %} <p class="text-center">No snack</p> {% endif %}
+    {% endfor %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

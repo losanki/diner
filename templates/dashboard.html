@@ -1,47 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
         <li class="breadcrumb-item-active" aria-current="page"><a href="/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
-        </ol>
-    </nav>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card text-white bg-info">
-                <div class="card-body">
-                    <h5 class="card-title">Weekly Menu</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Menu for current week</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="{% url 'menus-week' year week %}" class="card-link">Menu for this week >></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5 class="card-title">Add Menu</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Admin for adding menu</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="/admin" class="card-link">Admin dashboard >></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card text-white bg-warning">
-                <div class="card-body">
-                    <h5 class="card-title">Menu archives</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Access menu archives </h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="/admin" class="card-link">Access archives >></a>
-                </div>
+    </ol>
+</nav>
+<div class="card mb-3">
+    <div class="card-header">Notice board</div>
+    <div class="card-body">
+        <h5 class="card-title">Primary card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5 class="card-title">Daily menu</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Access daily menu </h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
+                    content.</p>
+                <a href="{% url 'menu_today' %}" class="card-link">Access daily menu >></a>
             </div>
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5 class="card-title">Weekly Menu</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Menu for current week</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
+                    content.</p>
+                <a href="{% url 'menus-week' year week %}" class="card-link">Menu for this week >></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Add Menu</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Admin for adding menu</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
+                    content.</p>
+                <a href="/admin" class="card-link">Admin dashboard >></a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

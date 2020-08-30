@@ -1,9 +1,8 @@
-from django.views.generic import ListView, DetailView, View, WeekArchiveView
-from .models import Menu, Order, Meal
+from django.views.generic import ListView, DetailView, View, WeekArchiveView, TodayArchiveView
+from .models import Menu, Meal
 import datetime
 from django.shortcuts import HttpResponseRedirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.utils.dates import WEEKDAYS
 
 
 def get_current_week():
@@ -32,6 +31,11 @@ class MenuItemsView(ListView):
     template_name = 'week.html'
 
 
+class TodayMenuView(TodayArchiveView):
+    queryset = Menu.objects.all()
+    date_field = 'date'
+
+
 class MenuWeekView(WeekArchiveView):
     queryset = Menu.objects.all()
     date_field = 'date'
@@ -55,21 +59,4 @@ class MealDetailView(DetailView):
         context['week'] = week
         return context
 
-
-class OrderCreateView(LoginRequiredMixin, View):
-    model = Order
-    template_name = 'order_form.html'
-
-    def get(self, request, *args, **kwargs):
-        meal = Meal.objects.get(pk=kwargs['pk'])
-        context = {'meal': meal}
-        return render(request, 'order_form.html', context)
-
-    def post(self, request, *args, **kwargs):
-        meal = Meal.objects.get(pk=kwargs['pk'])
-        order = Order()
-        order.meal = meal
-        order.user = self.request.user.profile
-        order.save()
-        return HttpResponseRedirect("/menu")
 
